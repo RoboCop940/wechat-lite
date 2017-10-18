@@ -13,12 +13,13 @@ client.on('login', function(){
   console.log('login success');
 });
 
-client
-.uuid()
+Promise.resolve()
+.then(client.uuid       .bind(client))
 .then(client.printQrcode.bind(client))
 .then(client.wait       .bind(client))
 .then(client.login      .bind(client))
 .then(client.init       .bind(client))
+.then(client.loop       .bind(client))
 .then(function(info){
   console.log(info);
 })
