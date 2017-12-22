@@ -9,9 +9,9 @@ describe('wechat api', function() {
 
   it('get token', function(done) {
     api.token().then(function(res){
-      console.log(res);
-      assert.ok(res.access_token)
-      assert.ok(res.expires_in)
+      // console.log(res);
+      assert.ok(res.access_token);
+      assert.equal(res.expires_in, 7200);
       done();
     });
   });
@@ -19,6 +19,8 @@ describe('wechat api', function() {
   it('get ticket ', function(done) {
     api.ticket().then(function(ticket){
       // console.log(ticket);
+      assert.ok(ticket.ticket);
+      assert.equal(ticket.expires_in, 7200);
       assert.ifError(ticket.errcode, ticket.errmsg);
       done();
     });
@@ -56,6 +58,7 @@ describe('wechat api', function() {
       assert.ok(res.count);
       assert.ok(res.data);
       assert.ok(res.next_openid);
+      assert.ok(Array.isArray(res.data.openid));
       done()
     });
   });
