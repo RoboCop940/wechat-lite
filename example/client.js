@@ -18,8 +18,9 @@ Promise.resolve()
 .then(client.printQrcode.bind(client))
 .then(client.wait       .bind(client))
 .then(client.login      .bind(client))
-.then(client.init       .bind(client))
-.then(client.loop       .bind(client))
+.then(session => client
+  .init(session)
+  .then(client.loop.bind(client, session)))
 .then(function(info){
   console.log(info);
 })
