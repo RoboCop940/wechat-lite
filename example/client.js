@@ -24,3 +24,22 @@ Promise.resolve()
 .then(function(info){
   console.log(info);
 })
+
+/*
+  uuid --> print
+    |
+    V
+  wait -> loop -> | input: uuid
+    |             |
+  login <---------|  input: login url
+    |             | output: set-cookie(wxuin|wxsid|webwx_data_ticket)
+    V
+  init            |  input: 
+    |             | output: { User, SyncKey }
+    V
+  check           |  input: { session, synckey }
+    |             | output: { retcode, selector }
+    V
+  sync            |  input: { session, synckey }
+                  | output: { SyncKey, AddMsgList }
+*/
