@@ -37,9 +37,8 @@ Promise.resolve()
   init            |  input: 
     |             | output: { User, SyncKey }
     V
-  check           |  input: { session, synckey }
+  check --------->|  input: { session, synckey }
     |             | output: { retcode, selector }
-    V
-  sync            |  input: { session, synckey }
+  sync <--------- |  input: { session, synckey }
                   | output: { SyncKey, AddMsgList }
 */
