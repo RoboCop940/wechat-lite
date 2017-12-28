@@ -1,44 +1,23 @@
-const WeChat = require('../');
+const WeChat = require('..');
 const config = require('kelp-config');
 
-const client = new WeChat.Client({
+const client = WeChat.Client({
   appId: 'wx782c26e4c19acffb'
 });
 
-client.on('scan', function(){
-  console.log('scan success');
+client.once('qrcode', url => {
+  console.log('[WeChat]>', url);
 });
 
-client.on('login', function(){
-  console.log('login success');
+client.on('scan', () => {
+  console.log('[WeChat]> scan');
 });
 
-Promise.resolve()
-.then(client.uuid       .bind(client))
-.then(client.printQrcode.bind(client))
-.then(client.wait       .bind(client))
-.then(client.login      .bind(client))
-.then(session => client
-  .init(session)
-  .then(client.loop.bind(client, session)))
-.then(function(info){
-  console.log(info);
-})
+client.on('login', user => {
+  console.log('[WeChat]> login success');
+});
 
-/*
-  uuid --> print
-    |
-    V
-  wait -> loop -> | input: uuid
-    |             |
-  login <---------|  input: login url
-    |             | output: set-cookie(wxuin|wxsid|webwx_data_ticket)
-    V
-  init            |  input: 
-    |             | output: { User, SyncKey }
-    V
-  check --------->|  input: { session, synckey }
-    |             | output: { retcode, selector }
-  sync <--------- |  input: { session, synckey }
-                  | output: { SyncKey, AddMsgList }
-*/
+client.on('message', msg => {
+  const [ from ] = client.ContactList.filter(x => x.UserName === msg.FromUserName);
+  console.log('[%s]>', from.NickName, msg.Content);
+});
