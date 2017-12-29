@@ -1,5 +1,4 @@
 const WeChat = require('..');
-const config = require('kelp-config');
 
 const client = WeChat.Client({
   appId: 'wx782c26e4c19acffb'
@@ -17,7 +16,20 @@ client.on('login', user => {
   console.log('[WeChat]> login success');
 });
 
-client.on('message', msg => {
-  const [ from ] = client.ContactList.filter(x => x.UserName === msg.FromUserName);
-  console.log('[%s]>', from.NickName, msg.Content);
+client.on('session:enter', () => {
+  console.log('session:enter');
+});
+
+client.on('session:quit', () => {
+  console.log('session:quit');
+});
+
+client.on('moments', () => {
+  console.log('moments');
+});
+
+client.on('message:text', msg => {
+  const [ from ] = client.MemberList.filter(x => x.UserName === msg.FromUserName);
+  console.log('[%s]>', from ? from.NickName : msg.FromUserName, msg.Content);
+  // client.send(msg.Content, msg.FromUserName);
 });
