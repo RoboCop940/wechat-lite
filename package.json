@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/song940/wechat-lite",
   "dependencies": {
+    "iconv-lite": "^0.4.19",
     "jstoxml": "*",
     "xml2js": "*"
   },

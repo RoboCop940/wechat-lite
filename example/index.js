@@ -5,6 +5,7 @@ const wechat = new WeChat({ appid: 'wxde40e023744664cb' });
 wechat.qrconnect({
   redirect_uri: 'https://mp.weixin.qq.com/debug/cgi-bin/webdebugger/qrcode'
 }, (err, res) => {
+  if(err) return console.error(err);
   switch(res.state){
     case 0:
       console.log('Your qrcode is', res.qrcode);
