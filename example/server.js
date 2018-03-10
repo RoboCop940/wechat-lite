@@ -3,7 +3,8 @@ const http    = require('http');
 const WeChat  = require('..');
 
 const app = new WeChat.Server('token', function(err, message){
-  // console.log(message);
+  if(err) return console.error(err);
+  // console.log('Incoming', message);
   switch (message.MsgType) {
     case 'text':
       return message.Content;
