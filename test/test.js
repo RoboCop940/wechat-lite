@@ -67,7 +67,7 @@ describe('wechat api', function() {
   });
 
   it('create qrcode', async () => {
-    const res = await api.qr(WeChat.QR_SCENE, {
+    const res = await api.qrcode(WeChat.QR_SCENE, {
       scene: { scene_str: '123' }
     }, 604800);
     assert.ok(res.ticket);
